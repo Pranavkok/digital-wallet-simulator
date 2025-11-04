@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Send() {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
 
   const navigate = useNavigate();
 
