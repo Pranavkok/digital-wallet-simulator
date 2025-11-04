@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Send() {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
 
   const navigate = useNavigate();
 
@@ -58,7 +58,7 @@ function Send() {
             <input 
               type="number" 
               value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              onChange={(e) => setAmount(e.target.value)}
               className="w-full border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" 
               placeholder="0.00" 
             />
