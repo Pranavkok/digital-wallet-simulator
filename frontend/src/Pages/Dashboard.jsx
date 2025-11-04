@@ -12,7 +12,7 @@ function Dashboard() {
     const fetchBalance = async() => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/api/v1/acc/balance", {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/acc/balance`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -34,7 +34,7 @@ function Dashboard() {
 
     const bulkFetch = async() => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/user/bulk?filter=${search}`)
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/user/bulk?filter=${search}`)
         if(response.data.success) {
           console.log(response.data.user)
           setData(response.data.user)

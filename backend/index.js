@@ -12,7 +12,11 @@ const portNumber = process.env.PORT
 
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}))
 app.use('/api/v1/user',authrouter);
 app.use('/api/v1/acc',accrouter);
 

@@ -16,7 +16,7 @@ function Send() {
   const handleSend = async() => {
     try {
       const token = localStorage.getItem("token")
-      const response = await axios.post("http://localhost:3000/api/v1/acc/transfer",{
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/acc/transfer`,{
         to , amount
       },{
         headers: {
