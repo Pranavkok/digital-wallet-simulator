@@ -96,7 +96,7 @@ function Dashboard() {
             <div className="font-semibold text-lg mb-4 text-blue-900">Your Friends</div>
             {data.length > 0 ? (
               <div className="space-y-3">
-                {data.map((u, index) => (
+                {data.map((u, index) => (u.userName != userName ? (
                   <div key={index} className="flex items-center justify-between p-3 border border-blue-100 rounded-lg hover:bg-blue-50 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-blue-600 text-white grid place-items-center font-semibold">
@@ -113,7 +113,9 @@ function Dashboard() {
                       Send Money
                     </button>
                   </div>
-                ))}
+                  ) : (<></>) 
+                )
+              )}
               </div>
             ) : (
               <div className="text-blue-600">No friends found.</div>
