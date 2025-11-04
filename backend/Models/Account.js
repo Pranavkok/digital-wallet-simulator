@@ -5,7 +5,8 @@ const {Schema} = mongoose
 
 const accountSchema = new Schema({
     userId : {
-        type : mongoose.Schema.Types.ObjectId   
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "PersonModel"   
     },
     balance : {
         type : Number

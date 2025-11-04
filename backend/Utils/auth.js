@@ -14,9 +14,8 @@ const auth = (req,res,next)=>{
 
         if(decode.userId){
             req.userId = decode.userId
+            next()
         }
-
-        next()
     } catch (error) {
         return res.json({
             message : error.message

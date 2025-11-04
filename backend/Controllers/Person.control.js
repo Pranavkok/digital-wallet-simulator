@@ -196,6 +196,7 @@ export async function bulkProfile(req,res){
     )
 
     return res.json({
+        success :true ,
         user : users.map((u)=>({
             userName : u.userName,
             firstName : u.firstName,
@@ -209,6 +210,7 @@ export async function getBalance(req,res){
     const userId = req.userId ;
 
     const account = await AccountModel.findOne({ userId });
+    const user = await PersonModel.findById(userId)
     const balance = account ? account.balance : 0
 
     return res.status(200).json({
@@ -216,6 +218,7 @@ export async function getBalance(req,res){
         success : true ,
         error : false ,
         balance : balance,
+        userName :  user.userName
     })
 }
 
