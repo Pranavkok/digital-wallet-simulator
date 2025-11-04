@@ -8,10 +8,7 @@ import authrouter from "./Routes/auth.route.js"
 import accrouter from "./Routes/account.route.js"
 
 const app = express()
-// var corsOptions = {
-//     origin: 'http://example.com',
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-//   }
+const portNumber = process.env.PORT
 
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
@@ -20,7 +17,7 @@ app.use('/api/v1/user',authrouter);
 app.use('/api/v1/acc',accrouter);
 
 await ConnectDb().then(()=>{
-    app.listen(3000,()=>{
-        console.log(`Server is running on port 3000`)
+    app.listen(portNumber,()=>{
+        console.log(`Server is running good `)
     })
   })
