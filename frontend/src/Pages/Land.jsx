@@ -14,28 +14,29 @@ const Land = () => {
               onClick={() => navigate('/signin')}
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
             >
-              Sign In
+              Login
             </button>
             <button
               onClick={() => navigate('/signup')}
               className="ml-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
             >
-              Sign Up
+              Register
             </button>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <header className="bg-blue-600 text-white text-center py-20">
+            <header
+        className="text-white py-20 text-center bg-cover bg-center bg-blue-700"
+        // style={{ backgroundImage: "url('https://lh3.googleusercontent.com/gg/AIJ2gl8xQgs0Vv_U7R_v-Vb96AZ_F3Ss1EIg8z35-mkzDo_E_H-mcEw2724svT86g2urjHdJ2VwpTuFKLKQvIPJxEdcaZTNo35Rn086069x1hN58KU1jHHoEg39NAKLwhvTTnZ4SwvyBZzibvaPo_RhGLZPMtY9071is9u8F-dJ46w14YfaFeGqmnuq0g8wWJtii1F8L3nMxBpfK8gy3vtCOWuppCBBJOxVZqNJ6XUtijh73zbCqev9MmFPMAojPGYlr6YwIbdyuZGfreE1tCp9RoZswR7J8Qf9r7m74U9hNGgymRdv4-1qEtv0S8mXdHLpxQlkoCPBmrrYDdr-otae-ZVo=s1024-rj')" }}
+      >
         <div className="container mx-auto px-6">
           <h1 className="text-5xl font-bold mb-4">Seamless, Secure, and Swift Payments for Everyone</h1>
           <p className="text-xl mb-8">
             Experience the future of digital transactions. Our platform offers a fast, reliable, and secure way to manage your finances, whether you're paying bills, sending money to friends, or shopping online.
           </p>
-          <button className="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300">
-            Get Started
-          </button>
+
         </div>
       </header>
 
