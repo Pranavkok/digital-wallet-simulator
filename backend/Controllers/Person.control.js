@@ -170,11 +170,11 @@ export async function GetProfile(req,res){
         })
     }
 
-    return res.status.json({
+    return res.status(200).json({
         message : "user profile fetched successfully",
-        succes : true ,
+        success : true ,
         error : false ,
-        data : user 
+        user : user 
     })
 }
 
