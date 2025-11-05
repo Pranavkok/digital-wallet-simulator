@@ -157,26 +157,26 @@ export async function UpdateProfile(req,res){
 
 }
 
-// export async function GetProfile(req,res){
-//     const userid = req.userId ;
+export async function GetProfile(req,res){
+    const userid = req.userId ;
 
-//     const user = await PersonModel.findById(userid);
+    const user = await PersonModel.findById(userid);
 
-//     if(!user){
-//         return res.status(404).json({
-//             message : "User NOt Found ",
-//             success : false ,
-//             error : true 
-//         })
-//     }
+    if(!user){
+        return res.status(404).json({
+            message : "User NOt Found ",
+            success : false ,
+            error : true 
+        })
+    }
 
-//     return res.status.json({
-//         message : "user profile fetched successfully",
-//         succes : true ,
-//         error : false ,
-//         data : user 
-//     })
-// }
+    return res.status.json({
+        message : "user profile fetched successfully",
+        succes : true ,
+        error : false ,
+        data : user 
+    })
+}
 
 export async function bulkProfile(req,res){
     const filter = req.query.filter || ""

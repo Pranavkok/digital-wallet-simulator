@@ -8,6 +8,7 @@ function Dashboard() {
     const [userName, setUserName] = useState("");
     const [search, setSearch] = useState("");
     const [data, setData] = useState([])
+    const [login,setLogin] = useState(false);
 
     const fetchBalance = async() => {
       try {
@@ -27,6 +28,11 @@ function Dashboard() {
     }
 
     useEffect(() => {
+      if(localStorage.getItem('token')){
+        setLogin(true);
+      }else{
+        setLogin(false);
+      }
       fetchBalance();
     }, [])
 
@@ -54,10 +60,13 @@ function Dashboard() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-blue-900">Hello {userName}!</h1>
           <div className="flex items-center justify-center flex-row gap-5">
-            <button onClick ={()=>{
+            {login && <button onClick ={()=>{
               localStorage.removeItem('token');
               navigate('/')
-            }} className="w-20 h-10 rounded  bg-blue-600 text-white grid place-items-center text-sm font-bold hover:bg-blue-400 transition-colors">Log Out</button>
+            }} className="w-20 h-10 rounded  bg-blue-600 text-white grid place-items-center text-sm font-bold hover:bg-blue-400 transition-colors">Log Out</button>}
+            {!login && <button onClick ={()=>{
+              navigate('/signin')
+            }} className="w-20 h-10 rounded  bg-blue-600 text-white grid place-items-center text-sm font-bold hover:bg-blue-400 transition-colors">Log In</button>}
             <button className="w-10 h-10 rounded-full bg-blue-600 text-white grid place-items-center text-sm font-bold hover:bg-blue-700 transition-colors">
             {userName ? userName[0].toUpperCase() : "U"}
           </button>
