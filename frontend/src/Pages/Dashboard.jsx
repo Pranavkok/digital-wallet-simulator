@@ -103,13 +103,13 @@ function Dashboard() {
                         {u.firstName ? u.firstName[0].toUpperCase() : "U"}
                       </div>
                       <div>
-                        <div className="font-medium text-blue-900">{u.firstName} {u.lastName}</div>
+                        <div className="font-medium text-blue-900 max-w-22">{u.firstName} {u.lastName}</div>
                         <div className="text-sm text-blue-600">{u.userName}</div>
                       </div>
                     </div>
                     <button onClick={()=>{
                       navigate(`/send?id=${u._id}&name=${u.userName}`)
-                    }} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                    }} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium box-border">
                       Send Money
                     </button>
                   </div>
