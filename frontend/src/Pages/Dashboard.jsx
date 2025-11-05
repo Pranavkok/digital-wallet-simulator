@@ -53,7 +53,10 @@ function Dashboard() {
       <header className="border-b border-blue-100 bg-white">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-blue-900">Hello {userName}!</h1>
-          <button className="w-10 h-10 rounded-full bg-blue-600 text-white grid place-items-center text-sm font-semibold hover:bg-blue-700 transition-colors">
+          <button onClick={()=>{
+            navigate('/profile')
+          }}
+          className="w-10 h-10 rounded-full bg-blue-600 text-white grid place-items-center text-sm font-semibold hover:bg-blue-700 transition-colors">
             {userName ? userName[0].toUpperCase() : "U"}
           </button>
         </div>
