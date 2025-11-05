@@ -4,6 +4,7 @@ import Signin from "./Pages/Signin.jsx"
 import Dashboard from "./Pages/Dashboard.jsx"
 import Send from "./Pages/Send.jsx"
 import Land from './Pages/Land.jsx'
+import Profile from './Pages/Profile.jsx'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/signin" element={<Signin/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/send" element={<Send/>} />
+        <Route path="/profile" element={<Profile/>} />
       </Routes>
     </BrowserRouter>
   )
