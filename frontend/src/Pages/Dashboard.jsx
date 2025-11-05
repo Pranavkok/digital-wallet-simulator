@@ -118,7 +118,7 @@ function Dashboard() {
                         {u.firstName ? u.firstName[0].toUpperCase() : "U"}
                       </div>
                       <div>
-                        <div className="font-medium text-blue-900">{u.firstName} {u.lastName}</div>
+                        <div className="font-medium text-blue-900 max-w-22">{u.firstName} {u.lastName}</div>
                         <div className="text-sm text-blue-600">{u.userName}</div>
                       </div>
                     </div>
