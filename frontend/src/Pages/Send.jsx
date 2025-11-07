@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Send() {
   const [amount, setAmount] = useState();
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ function Send() {
 
   const handleSend = async() => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("token")
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/acc/transfer`,{
         to , amount
@@ -34,6 +36,9 @@ function Send() {
 
     } catch (error) {
       console.log(error)
+    }
+    finally{
+      setLoading(false)
     }
   }
 
@@ -63,14 +68,25 @@ function Send() {
               placeholder="0.00" 
             />
           </div>
-          
-          <button 
-            onClick={handleSend}
-            type="button" 
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2 transition-colors"
-          >
+
+          {
+            loading && 
+            <button 
+              type="button" 
+              className="w-full bg-blue-300 hover:bg-blue-700 text-white rounded-md py-2 transition-colors"
+            >
+            Loading...
+            </button>
+          }
+          {
+            !loading && <button 
+              onClick={handleSend}
+              type="button" 
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2 transition-colors"
+            >
             Send Money
-          </button>
+            </button>
+          }
         </form>
       </div>
     </div>
