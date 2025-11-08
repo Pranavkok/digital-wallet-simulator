@@ -185,15 +185,22 @@ export async function bulkProfile(req,res){
         {
             $or: [{
                 firstName : {
-                    "$regex" : filter
+                    "$regex" : filter,
+                    $options: 'i'
                 }
             },{
                 lastName : {
-                    "$regex" : filter 
+                    "$regex" : filter ,
+                    $options: 'i'
+                }
+            },{
+                userName : {
+                    "$regex" : filter ,
+                    $options: 'i'
                 }
             }]
         }
-    )
+    ).limit(10);
 
     return res.json({
         success :true ,
