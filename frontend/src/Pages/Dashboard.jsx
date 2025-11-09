@@ -10,6 +10,8 @@ function Dashboard() {
     const [data, setData] = useState([])
     const [login,setLogin] = useState(false);
 
+    const navigate = useNavigate()
+
     const fetchBalance = async() => {
       try {
         const token = localStorage.getItem("token");
@@ -35,8 +37,6 @@ function Dashboard() {
       }
       fetchBalance();
     }, [])
-
-    const navigate = useNavigate()
 
     const bulkFetch = async() => {
       try {
@@ -138,6 +138,18 @@ function Dashboard() {
           </div>
         </div>
       </main>
+
+      <div className="max-w-6xl mx-auto px-6 pb-12">
+        <img src="/desktop_betting.png" alt="Betting Arena" className="hidden md:block rounded-lg shadow-lg" />
+        <img src="/mobile_betting.jpeg" alt="Betting Arena" className="block md:hidden rounded-lg shadow-lg" />
+        <div className="text-center mt-8">
+          <button onClick={()=>{
+            navigate('/betting-arena')
+          }} className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-md">
+            Explore Betting Arena
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import Dashboard from "./Pages/Dashboard.jsx"
 import Send from "./Pages/Send.jsx"
 import Land from './Pages/Land.jsx'
 import Profile from './Pages/Profile.jsx'
+import BetArena from './Pages/BetArena.jsx'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/send" element={<Send/>} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/betting-arena" element={<BetArena/>} />
       </Routes>
     </BrowserRouter>
   )
