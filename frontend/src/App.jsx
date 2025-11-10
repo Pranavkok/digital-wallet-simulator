@@ -6,6 +6,7 @@ import Send from "./Pages/Send.jsx"
 import Land from './Pages/Land.jsx'
 import Profile from './Pages/Profile.jsx'
 import BetArena from './Pages/BetArena.jsx'
+import EditProfile from './Pages/EditProfile.jsx'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/send" element={<Send/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/betting-arena" element={<BetArena/>} />
+        <Route path="/edit-profile" element={<EditProfile/>}/>
       </Routes>
     </BrowserRouter>
   )
