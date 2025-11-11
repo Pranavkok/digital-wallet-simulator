@@ -7,11 +7,13 @@ const Signup = () => {
   const [firstName,setFirstName] = useState("");
   const [lastName,setLastName] = useState("");
   const [password,setPassword] = useState("");
+  const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleClick = async ()=>{
     try {
+      setLoading(true);
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/user/signup`,
         {userName : userName , firstName  : firstName, lastName : lastName , password : password}
       )
@@ -25,6 +27,8 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error)
+    } finally{
+      setLoading(false)
     }
   }
 
@@ -59,7 +63,12 @@ const Signup = () => {
                 setPassword(e.target.value)
               }} value={password} type='password' className='w-full border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600' placeholder='••••••••' />
           </div>
-          <button onClick={handleClick} type='button' className='w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2'>Create account</button>
+          {
+            loading && <button type='button' className='w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2'>Loading</button>
+          }
+          {
+            !loading && <button onClick={handleClick} type='button' className='w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2'>Create account</button>
+          }
         </form>
         <p className='text-sm text-blue-700 mt-4 text-center'>
           Already have an account? <a className='underline text-blue-700 hover:text-blue-800' href='/signin'>Sign in</a>
