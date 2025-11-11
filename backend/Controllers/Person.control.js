@@ -135,15 +135,15 @@ export async function UpdateProfile(req,res){
     //     })
     // }
 
-    const {firstName ,lastName , password} = req.body
+    const {firstName ,lastName} = req.body
 
-    if(password.length < 6){
-        return res.status(414).json({
-            message : "Password is too short",
-            success : true ,
-            error : false 
-        })
-    }
+    // if(password.length < 6){
+    //     return res.status(414).json({
+    //         message : "Password is too short",
+    //         success : true ,
+    //         error : false 
+    //     })
+    // }
 
     const user = await PersonModel.updateOne({
         _id : req.userId

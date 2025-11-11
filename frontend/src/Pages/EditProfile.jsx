@@ -5,18 +5,33 @@ import {useNavigate} from "react-router-dom"
 function EditProfile() {
 
     const [userName, setUserName] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
     const [login,setLogin] = useState(false);
 
     const [editFirstName, setEditFirstName] = useState();
     const [editLastName, setEditLastName] = useState();
-    const [edituserName, setEditUserName] = useState();
 
     const navigate = useNavigate()
 
-    const handleUpdate = ()=>{
-        alert(`${editFirstName} : ${editLastName} : ${edituserName}`)
+    const handleUpdate = async()=>{
+        try {
+          const token = localStorage.getItem("token")
+          const response = await axios.put(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/user/update`,{
+            firstName : editFirstName,
+            lastName : editLastName
+          },{
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          if(response.data.success){
+            alert(response.data.message);
+            navigate('/dashboard')
+          }
+          
+        } catch (error) {
+          console.error(error.message);
+          alert("Error occured on EditProfile Page ! check console ")
+        }
     }
 
     const fetchProfile = async() => {
@@ -29,8 +44,6 @@ function EditProfile() {
         })
         if(response.data.success) {
           setUserName(response.data.user.userName);
-          setFirstName(response.data.user.firstName);
-          setLastName(response.data.user.lastName);
         }
       } catch (error) {
         console.log(error)
@@ -76,7 +89,7 @@ function EditProfile() {
             <div className="w-32 h-32 rounded-full bg-blue-600 text-white grid place-items-center font-semibold text-5xl mx-auto mb-6">
               {userName ? userName[0].toUpperCase() : "U"}
             </div>
-            {/* <h2 className="text-3xl font-bold text-blue-900 mb-2">{firstName} {lastName}</h2> */}
+            <h2 className="text-3xl font-bold text-blue-900 mb-2">{userName}</h2>
             <div className="flex flex-col items-center">
                 <input onChange={(e)=>{
                     setEditFirstName(e.target.value)
@@ -84,9 +97,6 @@ function EditProfile() {
                 <input onChange={(e)=>{
                     setEditLastName(e.target.value)
                 }} className="text-lg text-blue-600 mb-6 border p-2 rounded" type="text" placeholder="Last Name ..."/>
-                <input onChange={(e)=>{
-                    setEditUserName(e.target.value)
-                }} className="text-lg text-blue-600 mb-6 border p-2 rounded" type="text" placeholder="User Name ..." />
             </div>
             {/* <p className="text-lg text-blue-600 mb-6">@{userName}</p> */}
             <button onClick={handleUpdate} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
