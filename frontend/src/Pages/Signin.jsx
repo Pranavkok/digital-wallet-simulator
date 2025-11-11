@@ -5,11 +5,13 @@ import axios from "axios";
 function Signin() {
   const [userName,setUserName] = useState();
   const [password,setPassword] = useState();
+  const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleClick = async()=>{
     try {
+      setLoading(true);
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/user/signin`,{
         userName,password
       })
@@ -24,6 +26,8 @@ function Signin() {
       }
     } catch (error) {
       console.log(error)
+    } finally{
+      setLoading(false);
     }
   }
 
@@ -44,7 +48,12 @@ function Signin() {
               setPassword(e.target.value)
             } } value={password} type="password" className="w-full border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="••••••••" />
           </div>
-          <button onClick={handleClick} type="button" className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">Continue</button>
+          {
+            loading && <button type="button" className="w-full bg-blue-400 hover:bg-blue-700 text-white rounded-md py-2">Loading ...</button>
+          }
+          {
+            !loading && <button onClick={handleClick} type="button" className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">Submit</button>
+          }
         </form>
       </div>
     </div>
