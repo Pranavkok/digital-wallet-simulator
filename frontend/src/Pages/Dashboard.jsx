@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import {useNavigate} from "react-router-dom"
+import BetTransition from "../Components/BetTransition";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Dashboard() {
 
@@ -9,6 +11,7 @@ function Dashboard() {
     const [search, setSearch] = useState("");
     const [data, setData] = useState([])
     const [login,setLogin] = useState(false);
+    const [clicked,setClicked] = useState(false);
 
     const navigate = useNavigate()
 
@@ -144,12 +147,27 @@ function Dashboard() {
         <img src="/mobile_betting.jpeg" alt="Betting Arena" className="block md:hidden rounded-lg shadow-lg" />
         <div className="text-center mt-8">
           <button onClick={()=>{
-            navigate('/betting-arena')
+            // navigate('/betting-arena')
+            setClicked(true)
           }} className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-md">
             Explore Betting Arena
           </button>
         </div>
       </div>
+      <AnimatePresence>
+        {clicked && (
+          <motion.div
+            key="bet-transition"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.9, ease: "easeInOut" }}
+            className="fixed inset-0 bg-white z-50"
+          >
+            <BetTransition />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
