@@ -168,6 +168,11 @@ function Dashboard() {
           </motion.div>
         )}
       </AnimatePresence>
+      <footer className="bg-blue-600 text-white py-4 mt-12">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <p>&copy; 2025 Blumper. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   )
 }
