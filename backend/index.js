@@ -6,6 +6,7 @@ import cors from "cors"
 dotenv.config()
 import authrouter from "./Routes/auth.route.js"
 import accrouter from "./Routes/account.route.js"
+import gameRouter from "./Routes/game.route.js"
 
 const app = express()
 const portNumber = process.env.PORT
@@ -24,6 +25,7 @@ app.use(cors({
 }))
 app.use('/api/v1/user',authrouter);
 app.use('/api/v1/acc',accrouter);
+app.use('/api/v1/game',gameRouter)
 
 await ConnectDb().then(()=>{
     app.listen(portNumber,()=>{
