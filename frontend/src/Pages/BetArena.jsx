@@ -1,11 +1,11 @@
 // import { useEffect, useState } from "react"
 // import axios from "axios"
-// import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import BetHeader from "../Components/BetHeader";
 
 const BetArena = () => {
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -22,7 +22,7 @@ const BetArena = () => {
           <div className="bg-gray-800 rounded-lg shadow-lg p-6">
             <h3 className="text-2xl font-bold text-green-400 mb-4">Flip 50</h3>
             <p className="text-gray-400">One roll. Double or nothing</p>
-            <button className="mt-6 w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+            <button onClick={()=>{navigate('/flip50')}} className="mt-6 w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
               Play Now
             </button>
           </div>

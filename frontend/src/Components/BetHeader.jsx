@@ -7,7 +7,7 @@ const BetHeader = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [login,setLogin] = useState(false);
-    const [balance,setBalance] = useState();
+    const [balance,setBalance] = useState(0);
   
     const navigate = useNavigate();
 

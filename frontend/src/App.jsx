@@ -7,6 +7,7 @@ import Land from './Pages/Land.jsx'
 import Profile from './Pages/Profile.jsx'
 import BetArena from './Pages/BetArena.jsx'
 import EditProfile from './Pages/EditProfile.jsx'
+import Flip50 from './Pages/Flip50.jsx'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/profile" element={<Profile/>} />
         <Route path="/betting-arena" element={<BetArena/>} />
         <Route path="/edit-profile" element={<EditProfile/>}/>
+        <Route path="/flip50" element={<Flip50/>}/>
       </Routes>
     </BrowserRouter>
   )
