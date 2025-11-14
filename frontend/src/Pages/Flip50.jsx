@@ -7,6 +7,7 @@ const Flip50 = () => {
   const [amount , setAmount] = useState();
   const [result ,setResult] = useState(null);
   const [loading,setLoading] = useState(false);
+  const [rand , setRand] = useState(0);
 
   const handleChange = async()=>{
     try {
@@ -23,6 +24,7 @@ const Flip50 = () => {
       const data = response.data ;
       if(data.success){
         setResult(data.result);
+        setRand(data.randomNumber)
       }
 
     } catch (error) {
@@ -55,6 +57,7 @@ const Flip50 = () => {
           </div>
 
           <div className="text-center mb-8">
+            <p className="text-xl text-gray-400">Random generated value is {rand}</p>
             <p className="text-xl text-gray-400">Current Bet</p>
             <p className="text-5xl font-bold text-white">{amount ? amount : 0}</p>
           </div>
