@@ -45,7 +45,7 @@ export async function Flip50(req,res) {
             }).session(session);
         }
 
-        const result = randomNumber ? 'win' : 'loose' ;
+        const result = randomNumber > 50 ? 'win' : 'loss' ;
 
         await session.commitTransaction();
         session.endSession();
