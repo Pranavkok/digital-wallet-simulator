@@ -6,9 +6,11 @@ const Flip50 = () => {
 
   const [amount , setAmount] = useState();
   const [result ,setResult] = useState(null);
+  const [loading,setLoading] = useState(false);
 
   const handleChange = async()=>{
     try {
+      setLoading(true);
       const token = localStorage.getItem("token");
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/game/flip`,{
         amount : amount 
@@ -26,6 +28,8 @@ const Flip50 = () => {
     } catch (error) {
       console.log(error);
       alert(error.message);
+    } finally{
+      setLoading(false)
     }
   }
 
@@ -63,14 +67,23 @@ const Flip50 = () => {
                         rounded-lg hover:bg-green-700 transition-colors 
                         text-4xl font-bold text-center"
             />
-            <button 
+            {loading &&
+              <button 
+              className="w-full max-w-xs px-6 py-3 bg-red-600 text-white 
+                        rounded-lg hover:bg-red-700 transition-colors 
+                        text-2xl font-bold"
+            >
+              Loading ...
+            </button>}
+            {!loading &&
+              <button 
               onClick={handleChange}
               className="w-full max-w-xs px-6 py-3 bg-red-600 text-white 
                         rounded-lg hover:bg-red-700 transition-colors 
                         text-2xl font-bold"
             >
               BET
-            </button>
+            </button>}
           </div>
 
         </div>
