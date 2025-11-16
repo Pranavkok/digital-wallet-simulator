@@ -1,7 +1,7 @@
 import AccountModel from "../Models/Account.js";
 import mongoose from "mongoose";
 
-export async function Flip50(req,res) { 
+export async function Flip50(req,res){ 
     let session;
     try {
         session = await mongoose.startSession();
@@ -68,4 +68,8 @@ export async function Flip50(req,res) {
             error : true 
         })
     }
+}
+
+export async function Lottery(req,res){
+
 }
