@@ -1,4 +1,5 @@
 import AccountModel from "../Models/Account.js";
+import LotteryModel from "../Models/Lottery.js";
 import mongoose from "mongoose";
 
 export async function Flip50(req,res){ 
@@ -70,6 +71,62 @@ export async function Flip50(req,res){
     }
 }
 
-export async function Lottery(req,res){
+export async function BuyLottery(req,res){
+    try {
+        const userId = req.userId ;
 
+        const user = await AccountModel.findOne({userId : userId});
+
+        if(user.balance < 500){
+            return res.status(400).json({
+                message : "You Dont have enough balance in your account !",
+                success : false ,
+                error : true 
+            })
+        }
+
+        const alreadyBuyed = await LotteryModel.find({userId : userId})
+
+        const d = new Date();
+        const day = String(d.getDate()).padStart(2, "0");
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const year = d.getFullYear();
+
+        const date = `${day}-${month}-${year}`;
+
+        alreadyBuyed.map((u)=>{
+            if(u.date === date){
+                return res.status(400).json({
+                    message : "You have already purchashed Ticket for Today :)",
+                    success : false ,
+                    error : true 
+                })
+            }
+        })
+
+        const pushUserLottery = new LotteryModel({
+            userId : userId ,
+            date : date
+        })
+
+        await pushUserLottery.save()
+
+        await AccountModel.updateOne({userId : userId},{
+            $inc : { balance : -500 }
+        })
+
+        return res.status(200).json({
+            message : "Ticket Buyed Success :)",
+            success : true ,
+            error : false 
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
 }
+
+
+// export async function isBuyedTodayTicket(req,res){
+
+// }
