@@ -32,3 +32,6 @@ await ConnectDb().then(()=>{
         console.log(`Server is running good `)
     })
   })
+
+
+//   tomorrow i want to add cron jobs -> where i will fetch /findWinners route at every 10am 

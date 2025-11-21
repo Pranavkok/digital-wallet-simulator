@@ -1,5 +1,7 @@
 import AccountModel from "../Models/Account.js";
 import LotteryModel from "../Models/Lottery.js";
+import PrizeModel from "../Models/Prize.js";
+import PersonModel from "../Models/Person.js";
 import mongoose from "mongoose";
 
 export async function Flip50(req,res){ 
@@ -157,3 +159,103 @@ export async function isBuyedTodayTicket(req,res){
     })
 }
 
+export async function findWinners(req,res){
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    const date = `${day}-${month}-${year}`;
+
+    const alreadyDone = await PrizeModel.find({date : date});
+
+    if(alreadyDone){
+        return res.status(400).json({
+            message : "Prize already distributed",
+            success : false ,
+            error : true 
+        })
+    }
+
+    const users = await LotteryModel.find({date : date});
+
+    const n = users.length ;
+
+    if(n <= 0){
+        return res.json({
+            message : "No Participant",
+            success : true ,
+            error : false 
+        })
+    }
+
+    const TotalPool = 500 * n ;
+    const firstPrize = TotalPool/2 ;
+    const remainingPool = TotalPool/2 ;
+    const thirdPrize = remainingPool/3 ;
+    const secondPrize = remainingPool - thirdPrize ;
+
+
+    const first = Math.floor(Math.random() * n);
+    const second = Math.floor(Math.random() * n);
+    const third = Math.floor(Math.random() * n);
+
+    const firstWinnerUserId = users[first].userId ;
+    const secondWinnerUserId = users[second].userId ;
+    const thirdWinnerUserId = users[third].userId ;
+
+    await AccountModel.updateOne({userId : firstWinnerUserId},{
+        $inc : { balance : firstPrize }
+    })
+    await AccountModel.updateOne({userId : secondWinnerUserId},{
+        $inc : { balance : secondPrize }
+    })
+    await AccountModel.updateOne({userId : thirdWinnerUserId},{
+        $inc : { balance : thirdPrize }
+    })
+
+    const pushWinners = await PrizeModel.create({
+        date : date ,
+        winners : {
+            first : firstWinnerUserId,
+            second : secondWinnerUserId ,
+            third : thirdWinnerUserId
+        }
+    })
+
+    return res.status(200).json({
+        message : "reward distributed success" ,
+        success : true ,
+        error : false ,
+        firstWinner : firstWinnerUserId ,
+        secondWinner : secondWinnerUserId ,
+        thirdWinner : thirdWinnerUserId
+    })
+
+}
+
+export async function fetchTodaysWinners(req,res){
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    const date = `${day}-${month}-${year}`;
+
+    const prize = await PrizeModel.find({date : date});
+
+    const firstUserid = prize.winners.first ;
+    const secondUserid = prize.winners.second ;
+    const thirdUserid = prize.winners.third ;
+
+    const firstUser = await PersonModel.findById(firstUserid);
+    const secondUser = await PersonModel.findById(secondUserid);
+    const thirdUser = await PersonModel.findById(thirdUserid);
+
+    return res.status(200).json({
+        message : "Fetch success !",
+        success : true ,
+        error : false ,
+        firstWinner : firstUser ,
+        secondWinner : secondUser ,
+        thirdWinner : thirdUser
+    })
+}
