@@ -127,6 +127,33 @@ export async function BuyLottery(req,res){
 }
 
 
-// export async function isBuyedTodayTicket(req,res){
+export async function isBuyedTodayTicket(req,res){
+    const userId = req.userId ;
 
-// }
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = d.getFullYear();
+    const date = `${day}-${month}-${year}`;
+
+    const users = await LotteryModel.find({userId : userId});
+
+    users.map((u)=>{
+        if(u.date ==date){
+            return res.status(200).json({
+                message : "You have already Buyed Todays Ticket !",
+                success : true ,
+                error : false ,
+                isBuy : true 
+            })
+        }
+    })
+
+    return res.status(200).json({
+        message : "Not Buyed Ticket for today yet ",
+        success : true ,
+        error : false ,
+        isBuy : false 
+    })
+}
+
