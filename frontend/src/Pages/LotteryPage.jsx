@@ -81,6 +81,14 @@ const LotteryPage = () => {
           </nav>
         </div>
       </header>
+      <main className="max-w-4xl mx-auto px-6 py-12">
+
+      </main>
+      <footer className="bg-green-800 py-4 mt-12">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <p>&copy; 2025 Blumper. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   )
 }
