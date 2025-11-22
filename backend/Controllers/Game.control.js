@@ -96,15 +96,21 @@ export async function BuyLottery(req,res){
 
         const date = `${day}-${month}-${year}`;
 
+        let alreadyBuyFlag = false ;
+
         alreadyBuyed.map((u)=>{
             if(u.date === date){
-                return res.status(400).json({
-                    message : "You have already purchashed Ticket for Today :)",
-                    success : false ,
-                    error : true 
-                })
+                alreadyBuyFlag = true ;
             }
         })
+
+        if(alreadyBuyFlag){
+            return res.status(400).json({
+                message : "You have already purchashed Ticket for Today :)",
+                success : false ,
+                error : true 
+            })
+        }
 
         const pushUserLottery = new LotteryModel({
             userId : userId ,
@@ -128,7 +134,6 @@ export async function BuyLottery(req,res){
     }
 }
 
-
 export async function isBuyedTodayTicket(req,res){
     const userId = req.userId ;
 
@@ -140,16 +145,22 @@ export async function isBuyedTodayTicket(req,res){
 
     const users = await LotteryModel.find({userId : userId});
 
+    let alreadyBuyFlag = false ;
+
     users.map((u)=>{
-        if(u.date ==date){
-            return res.status(200).json({
-                message : "You have already Buyed Todays Ticket !",
-                success : true ,
-                error : false ,
-                isBuy : true 
-            })
+        if(u.date == date){
+            alreadyBuyFlag = true ;
         }
     })
+
+    if(alreadyBuyFlag){
+        return res.status(200).json({
+            message : "You have already Buyed Todays Ticket !",
+            success : true ,
+            error : false ,
+            isBuy : true 
+        })
+    }
 
     return res.status(200).json({
         message : "Not Buyed Ticket for today yet ",
@@ -240,7 +251,15 @@ export async function fetchTodaysWinners(req,res){
     const year = d.getFullYear();
     const date = `${day}-${month}-${year}`;
 
-    const prize = await PrizeModel.find({date : date});
+    const prize = await PrizeModel.findOne({date : date});
+
+    if(!prize){
+        return res.status(400).json({
+            message : "Lottery Not happend yet !",
+            success : false ,
+            error : true 
+        })
+    }
 
     const firstUserid = prize.winners.first ;
     const secondUserid = prize.winners.second ;

@@ -11,6 +11,7 @@ const LotteryPage = () => {
   const [firstWinnerName,setFirstWinnerName] = useState("");
   const [secondWinnerName,setSecondWinnerName] = useState("");
   const [thirdWinnerName,setThirdWinnerName] = useState("");
+  const [isPurchased , setIsPurchased] = useState(false);
 
   const navigate = useNavigate();
 
@@ -67,8 +68,42 @@ const LotteryPage = () => {
             setThirdWinnerName(data.thirdWinner.userName);
         }
     } catch (error) {
-        console.log("hahahha" + error);
-        alert("from winner" + error.message)
+        console.log("No winners found for today yet: " + error.message);
+    }
+  }
+
+  const findIsPurchased = async () => {
+    try {
+        const token = localStorage.getItem("token")
+        const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/game/isLotteryBuyed`, null, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+        })
+
+        if(response.data.success){
+            setIsPurchased(response.data.isBuy);
+        }
+    } catch (error) {
+        console.log("error occured while fetching isPurchased" + error.message);
+    }
+  }
+
+  const buyTicket = async () => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_KEY}/api/v1/game/lottery`, null, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if(response.data.success){
+            alert(response.data.message);
+        }
+        // setIsPurchased(true);
+    } catch (error) {
+        console.log(error.message);
     }
   }
 
@@ -79,7 +114,8 @@ const LotteryPage = () => {
     if (token) {
       fetchProfile();
       fetchBalance();
-    //   fetchWinners();
+      fetchWinners();
+      findIsPurchased();
     }
   }, []);
 
@@ -214,10 +250,16 @@ const LotteryPage = () => {
                 500 coins
               </span>
             </p>
-
-            <button className="bg-green-500 hover:bg-green-600 text-white text-3xl font-bold py-5 px-20 rounded-2xl transition-all duration-300 uppercase tracking-widest shadow-lg hover:shadow-green-500/50 hover:scale-105 active:scale-95 transform">
-              BUY NOW
-            </button>
+              {
+                isPurchased && <button className="bg-red-500 hover:bg-red-600 text-white text-3xl font-bold py-5 px-20 rounded-2xl transition-all duration-300 uppercase tracking-widest shadow-lg hover:shadow-green-500/50 hover:scale-105 active:scale-95 transform">
+                Already Purchased 
+              </button>
+              }
+              {
+                !isPurchased && <button onClick={buyTicket} className="bg-green-500 hover:bg-green-600 text-white text-3xl font-bold py-5 px-20 rounded-2xl transition-all duration-300 uppercase tracking-widest shadow-lg hover:shadow-green-500/50 hover:scale-105 active:scale-95 transform">
+                BUY NOW
+              </button>
+              }
 
             <p className="mt-6 text-sm text-gray-400 italic">
               🍀 Good luck on your next draw!
